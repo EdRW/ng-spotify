@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { of, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -8,25 +8,41 @@ import { of, Observable } from 'rxjs';
 })
 export class SpotifyService {
 
+  private BASE_URL = 'https://api.spotify.com/v1';
+  // tslint:disable-next-line:max-line-length
+  private apiKey = 'BQAB0TeIirPonuVGfzKc-qiGA8Bbb5-jsPp0LAkwHazWjIfmGNav4xPkSqa76vylq7tq6hpOS4eopAOiLO0LjJ8vCWptYxPxDsrPCBvykS2EgBvgMuXYAZ1LT9VRXVmhg5Hyg0cLC-Sy';
+
   constructor( public http: HttpClient) {}
 
-  searchTrack (query: String) {
-    const params: string = [
-      `q=${query}`,
-      `type=track`
-    ].join('&');
+  searchTrack (query: string) {
+    return this.search(query, 'track');
+  }
 
+  getTrack (id: string) {
+    return this.query(`/tracks/${id}`);
+  }
+
+  query (
+    URL: string,
+    params?: Array<string>
+  ): Observable<any> {
+    let queryUrl = `${this.BASE_URL}${URL}`;
+    if (params) {
+      queryUrl = `${queryUrl}?${params.join('&')}`;
+    }
     const httpOptions = {
       headers : new HttpHeaders({
         'Accept': 'application/json',
-        'Authorization': 'Bearer BQB3o0e45P4NB8sstkmPGpYNtzkvh6BCIcLvDFJi6kiRdVD36D1Bdx\
-        RdPQnU0qPkW5MtsJqMB9T83YWMMg_lRPAViUs1MmR72Y5QyTWluwlHaV04N5UUj-NyQoNK2toyiaL1Tq7UqgwC'
+        'Authorization': `Bearer ${this.apiKey}`
       })
     };
-
-    const queryUrl = `https://api.spotify.com/v1/search?${params}`;
-    // the example code below from book doesn't work
-    // return this.http.request(queryUrl).map(res => res.json());
     return this.http.get(queryUrl, httpOptions);
+  }
+
+  search(query: string, type: string): Observable<any> {
+    return this.query(`/search`, [
+      `q=${query}`,
+      `type=${type}`
+    ]);
   }
 }

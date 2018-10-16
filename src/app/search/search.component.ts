@@ -19,8 +19,8 @@ export class SearchComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute) {
     this.route
-      .queryParams
-      .subscribe(params => {this.query = params['query'] || ''; });
+        .queryParams
+        .subscribe(params => {this.query = params['query'] || ''; });
   }
 
   ngOnInit() {

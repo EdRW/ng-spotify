@@ -1,3 +1,18 @@
-<p>
-  track works!
-</p>
+<div *ngIf="track">
+  <h1>{{ track.name }}</h1>
+
+  <p>
+    <img src="{{track.album.images[1].url}}">
+  </p>
+
+  <div *ngIf="!track.preview_url">
+      Preview of this track is unavailable on Spotify
+  </div>
+  <p *ngIf="track.preview_url">
+    <audio controls src="{{ track.preview_url }}"></audio>
+  </p>
+
+  <p>
+    <a href (click)="back()">Back</a>
+  </p>
+</div>

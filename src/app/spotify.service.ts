@@ -22,6 +22,14 @@ export class SpotifyService {
     return this.query(`/tracks/${id}`);
   }
 
+  getArtist (id: string) {
+    return this.query(`/artists/${id}`);
+  }
+
+  getAlbum (id: string) {
+    return this.query(`/albums/${id}`);
+  }
+
   query (
     URL: string,
     params?: Array<string>

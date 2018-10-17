@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { OAuthModule, OAuthService } from 'angular-oauth2-oidc';
 import {
   RouterModule,
   Routes
@@ -34,8 +35,9 @@ const routes: Routes = [
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
+    OAuthModule.forRoot()
   ],
-  providers: [],
+  providers: [OAuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 
 @Injectable({
@@ -10,9 +11,10 @@ export class SpotifyService {
 
   private BASE_URL = 'https://api.spotify.com/v1';
   // tslint:disable-next-line:max-line-length
-  private apiKey = 'BQAB0TeIirPonuVGfzKc-qiGA8Bbb5-jsPp0LAkwHazWjIfmGNav4xPkSqa76vylq7tq6hpOS4eopAOiLO0LjJ8vCWptYxPxDsrPCBvykS2EgBvgMuXYAZ1LT9VRXVmhg5Hyg0cLC-Sy';
+  private apiKey = 'BQB5wTHyjvP5zZFLbjbL8PyxujB4-CQHB7wC8cRRnBXnSreLycjeSgxjDxR0otQF74X9gTzD4vx1guqmolPbhTCkTuWiTLoTsDzAz8HFgaM3mG0MVUfGbNJ7DGLTCBkzay2oAQzBMDcW';
 
-  constructor( public http: HttpClient) {}
+  constructor(public http: HttpClient,
+              private oauthService: OAuthService) {}
 
   searchTrack (query: string) {
     return this.search(query, 'track');
@@ -41,9 +43,11 @@ export class SpotifyService {
     const httpOptions = {
       headers : new HttpHeaders({
         'Accept': 'application/json',
-        'Authorization': `Bearer ${this.apiKey}`
+        'Authorization': `Bearer ${this.oauthService.getAccessToken()}`
       })
     };
+
+    console.log(`token: ${this.oauthService.getAccessToken()}`);
     return this.http.get(queryUrl, httpOptions);
   }
 

@@ -4,7 +4,7 @@ export const authConfig: AuthConfig = {
 
   oidc: false,
   // Url of the Identity Provider
-  issuer: 'https://',
+  // issuer: 'https://',
   loginUrl: 'https://accounts.spotify.com/authorize',
   // URL of the SPA to redirect the user to after login
   redirectUri: window.location.origin, // + '/index.html',

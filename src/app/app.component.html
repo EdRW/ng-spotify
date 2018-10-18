@@ -3,25 +3,22 @@
     <h1>Spotify <small>Music Search</small></h1>
   </div>
 </div>
-
+<br>
 <div class="container">
-  <p *ngIf="!loggedIn">
-    Please login before searching
-  </p>
-  <p *ngIf="loggedIn">
-    Login Successful!
-  </p>
+  <div *ngIf="!loggedIn">
+    <p>
+      Please login before searching
+    </p>
+    <button class="btn btn-default" (click)="login()">
+      Login
+    </button>
+  </div>
 
-  <button class="btn btn-default" (click)="login()">
-    Login
-  </button>
-  <button class="btn btn-default" (click)="logoff()">
-    Logout
-  </button>
+  <p *ngIf="loggedIn">
+    Login Successful! Search away!
+  </p>
 </div>
 
-
-<br>
 <div id="content">
   <div class="container">
     <router-outlet></router-outlet>

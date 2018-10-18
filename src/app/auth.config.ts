@@ -2,8 +2,9 @@ import { AuthConfig } from 'angular-oauth2-oidc';
 
 export const authConfig: AuthConfig = {
 
+  oidc: false,
   // Url of the Identity Provider
-  // issuer: 'https://steyer-identity-server.azurewebsites.net/identity',
+  issuer: 'https://',
   loginUrl: 'https://accounts.spotify.com/authorize',
   // URL of the SPA to redirect the user to after login
   redirectUri: window.location.origin, // + '/index.html',
@@ -15,6 +16,5 @@ export const authConfig: AuthConfig = {
   // The first three are defined by OIDC. The 4th is a usecase-specific one
   scope: 'user-read-private',
 
-  oidc: false,
-
+  // requireHttps: false
 };

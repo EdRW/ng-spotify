@@ -13,6 +13,7 @@ import { SearchComponent } from './search/search.component';
 import { ArtistComponent } from './artist/artist.component';
 import { AlbumComponent } from './album/album.component';
 import { TrackComponent } from './track/track.component';
+import { SpotifyService } from './spotify.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'search', pathMatch: 'full' },
@@ -37,7 +38,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     OAuthModule.forRoot()
   ],
-  providers: [OAuthService],
+  providers: [SpotifyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

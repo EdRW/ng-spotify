@@ -20,8 +20,18 @@ export class SearchComponent implements OnInit {
               private route: ActivatedRoute) {
     this.route
         .queryParams
-        .subscribe(params => {this.query = params['query'] || ''; });
-  }
+        .subscribe(params => {
+          console.log('Qparams: ' + params['query']);
+          this.query = params['query'] || ''; });
+    this.route
+        .fragment
+        .subscribe(token => {
+          if (token) {
+            console.log('token: ' + token);
+            this.spotify.setToken(token.split('access_token=')[1].split('&')[0]);
+          }
+        });
+}
 
   ngOnInit() {
     this.search();

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { OAuthService, JwksValidationHandler } from 'angular-oauth2-oidc';
 import { authConfig } from './auth.config';
+import { ActivatedRoute } from '@angular/router';
+import { SpotifyService } from './spotify.service';
 
 @Component({
   selector: 'app-root',
@@ -9,29 +11,20 @@ import { authConfig } from './auth.config';
 })
 export class AppComponent {
   title = 'ng-spotify';
-  constructor(private oauthService: OAuthService) {
+  constructor(private oauthService: OAuthService,
+              private spotify: SpotifyService) {
     this.configureWithNewConfigApi();
   }
 
   private configureWithNewConfigApi() {
     this.oauthService.configure(authConfig);
-    this.oauthService.tokenValidationHandler = new JwksValidationHandler();
-    this.oauthService.loadDiscoveryDocumentAndTryLogin();
-    // this.oauthService.loadDiscoveryDocumentAndLogin();
   }
 
   public login() {
     this.oauthService.initImplicitFlow();
   }
 
-  public logoff() {
-      this.oauthService.logOut();
-  }
-
   public get loggedIn() {
-/*       const token = this.oauthService.getAccessToken();
-      console.log('token: ' + token);
-      if (!token) { return false; } */
-      return true;
+      return this.spotify.loggedin();
   }
 }
